@@ -1,14 +1,4 @@
-# BystroED Data Platform
 
-Junior Data Engineer onboarding project.
+## Status
 
-Stack:
-- Linux/macOS terminal
-- Git
-- Python
-- SQL
-- Docker
-- Airflow
-- PostgreSQL
-- ClickHouse
-- S3
+Onboarding in progress.
