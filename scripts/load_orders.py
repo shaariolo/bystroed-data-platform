@@ -18,6 +18,7 @@ logging.basicConfig(
 def process_orders(input_csv, output_json):
     clean_orders = []
     bad_rows_count = 0
+    total_amount = 0.0
     
     logging.info(f"Starting ingestion from {input_csv}")
     
@@ -35,6 +36,7 @@ def process_orders(input_csv, output_json):
                     
                     # Пытаемся преобразовать amount в float
                     amount = float(row['amount'])
+                    total_amount += amount
                     
                     # Если всё ок - добавляем в список чистых данных
                     clean_orders.append({
@@ -58,10 +60,9 @@ def process_orders(input_csv, output_json):
     with open(output_json, 'w', encoding='utf-8') as f:
         json.dump(clean_orders, f, indent=4, ensure_ascii=False)
         
-    logging.info(f"Ingestion finished. Clean rows: {len(clean_orders)}, Bad rows: {bad_rows_count}")
+    logging.info(f"Ingestion finished. Clean rows: {len(clean_orders)}, Bad rows: {bad_rows_count}, Total amount: {total_amount}")
     print(f"Done. Check {output_json} and logs/python_app.log")
 
 if __name__ == "__main__":
     process_orders('data/orders_1c.csv', 'data/orders_clean.json')
 
-    
