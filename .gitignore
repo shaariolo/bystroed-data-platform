@@ -15,3 +15,7 @@ data/
 
 # Logs
 *.log
+
+# Runtime artifacts
+logs/
+*.tar.gz
