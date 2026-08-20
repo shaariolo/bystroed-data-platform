@@ -11,3 +11,8 @@
 - PostgreSQL
 - Airflow
 - S3/Parquet
+
+## Remote
+- GitHub repository connected
+- SSH configured
+- Pull Request created
