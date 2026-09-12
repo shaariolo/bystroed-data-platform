@@ -16,8 +16,8 @@ DB_CONFIG = {
     "host": "localhost",
     "port": "5432",
     "dbname": "bystroed_db",
-    "user": "bystroed",
-    "password": "super_secret_password_123"
+    "user": "airflow",
+    "password": "airflow"
 }
 
 # 3. Путь к CSV-файлу и размер пачки
