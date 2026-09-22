@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: raw
+    description: "Сырые данные из 1С и других источников"
+    schema: raw
+    tables:
+      - name: products
+        description: "Сырые данные о товарах из 1С"

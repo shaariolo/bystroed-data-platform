@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: dim_products
+    description: "Измерение товаров с бизнес-логикой"
+    columns:
+      - name: product_id
+        description: "Уникальный идентификатор товара"
+        tests:
+          - unique
+          - not_null
+      - name: price_tier
+        description: "Ценовой сегмент товара"
+        tests:
+          - accepted_values:
+              values: ['high', 'medium', 'low']
+      - name: status
+        description: "Статус товара"
+        tests:
+          - accepted_values:
+              values: ['active', 'inactive']

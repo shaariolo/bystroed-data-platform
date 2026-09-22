@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: stg_products
+    description: "Очищенные данные о товарах из 1С"
+    columns:
+      - name: product_id
+        description: "Уникальный идентификатор товара"
+        tests:
+          - unique
+          - not_null
+      - name: name
+        description: "Название товара"
+        tests:
+          - not_null
+      - name: category
+        description: "Категория товара"
+        tests:
+          - not_null
+      - name: price
+        description: "Цена товара"
+        tests:
+          - not_null
