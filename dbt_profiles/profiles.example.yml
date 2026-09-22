@@ -1,0 +1,13 @@
+# Copy this file to profiles.yml and fill in your credentials
+bystroed_dbt:
+  outputs:
+    dev:
+      type: postgres
+      host: postgres
+      port: 5432
+      user: airflow
+      password: <your_password>
+      dbname: bystroed_db
+      schema: stg
+      threads: 4
+  target: dev

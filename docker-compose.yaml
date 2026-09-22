@@ -35,6 +35,8 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/scripts:/opt/airflow/scripts
     - ${AIRFLOW_PROJ_DIR:-.}/data:/opt/airflow/data
     - ${AIRFLOW_PROJ_DIR:-.}/requirements.txt:/opt/airflow/requirements.txt
+    - ${AIRFLOW_PROJ_DIR:-.}/bystroed_dbt:/opt/airflow/bystroed_dbt
+    - ${AIRFLOW_PROJ_DIR:-.}/dbt_profiles:/home/airflow/.dbt
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     &airflow-common-depends-on
@@ -98,6 +100,9 @@ services:
       - ./scripts:/opt/airflow/scripts
       - ./data:/opt/airflow/data
       - ./requirements.txt:/opt/airflow/requirements.txt    
+      - ./bystroed_dbt:/opt/airflow/bystroed_dbt 
+      - ./dbt_profiles:/home/airflow/.dbt
+      
 
   airflow-scheduler:
     <<: *airflow-common
@@ -119,7 +124,9 @@ services:
       - ./plugins:/opt/airflow/plugins
       - ./scripts:/opt/airflow/scripts
       - ./data:/opt/airflow/data
-      - ./requirements.txt:/opt/airflow/requirements.txt    
+      - ./requirements.txt:/opt/airflow/requirements.txt 
+      - ./bystroed_dbt:/opt/airflow/bystroed_dbt    
+      - ./dbt_profiles:/home/airflow/.dbt
 
   airflow-worker:
     <<: *airflow-common
