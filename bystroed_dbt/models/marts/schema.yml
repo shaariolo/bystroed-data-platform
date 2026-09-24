@@ -13,3 +13,16 @@ models:
         description: "Общая выручка по категории"
         tests:
           - not_null
+
+  - name: mart_retention
+    description: "Когортный анализ удержания клиентов"
+    columns:
+      - name: cohort_month
+        tests:
+          - not_null
+      - name: activity_month
+        tests:
+          - not_null
+      - name: retention_rate
+        tests:
+          - not_null          
