@@ -1,5 +1,6 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator
+from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from datetime import datetime, timedelta
 import time
 import csv
@@ -144,5 +145,12 @@ with DAG(
         task_id="check_products_count",
         python_callable=check_products_count
     )
+
+    trigger_dbt = TriggerDagRunOperator(
+        task_id="trigger_dbt_transform",
+        trigger_dag_id="dbt_transform",
+        wait_for_completion=True,
+        poke_interval=30,
+    )
     
-    load_products_task >> check_count_task          
+    load_products_task >> check_count_task >> trigger_dbt        
