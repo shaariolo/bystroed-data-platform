@@ -21,3 +21,31 @@ models:
         description: "Цена товара"
         tests:
           - not_null
+
+  - name: stg_customers
+    description: "Очищенные данные о клиентах"
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+      - name: customer_name
+        tests:
+          - not_null
+      - name: city
+        tests:
+          - not_null
+          
+  - name: stg_orders
+    description: "Очищенные данные о заказах"
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        tests:
+          - not_null
+      - name: quantity
+        tests:
+          - not_null        

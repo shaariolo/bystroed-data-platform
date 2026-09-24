@@ -7,3 +7,7 @@ sources:
     tables:
       - name: products
         description: "Сырые данные о товарах из 1С"
+      - name: customers
+        description: "Сырые данные о клиентах"
+      - name: orders
+        description: "Сырые данные о заказах"
