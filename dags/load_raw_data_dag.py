@@ -1,5 +1,6 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator
+from airflow.operators.bash import BashOperator
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from datetime import datetime, timedelta
 import csv
@@ -18,6 +19,7 @@ DB_CONFIG = {
 }
 
 DATA_DIR = "/opt/airflow/data"
+SODA_DIR = "/opt/airflow/bystroed_dbt/soda"
 BATCH_SIZE = 10_000
 
 logging.basicConfig(
@@ -175,6 +177,16 @@ with DAG(
         python_callable=load_orders,
     )
 
+    soda_raw_check = BashOperator(
+        task_id="soda_raw_check",
+        bash_command=(
+            f"cd {SODA_DIR} && "
+            f"soda scan -d bystroed_db -c configuration.yml checks/raw_products.yml && "
+            f"soda scan -d bystroed_db -c configuration.yml checks/raw_customers.yml && "
+            f"soda scan -d bystroed_db -c configuration.yml checks/raw_orders.yml"
+        ),
+    )    
+    
     trigger_dbt = TriggerDagRunOperator(
         task_id="trigger_dbt_transform",
         trigger_dag_id="dbt_transform",
@@ -182,4 +194,4 @@ with DAG(
         poke_interval=30,
     )
 
-    [load_products_task, load_customers_task, load_orders_task] >> trigger_dbt
+    [load_products_task, load_customers_task, load_orders_task] >> soda_raw_check >> trigger_dbt 

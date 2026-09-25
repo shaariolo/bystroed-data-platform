@@ -1,0 +1,36 @@
+checks for raw.products:
+  # Количество строк
+  - row_count >= 100000:
+      name: "Products: минимум 100000 строк"
+      attributes:
+        category: "completeness"
+
+  # Нет пропусков в ключевых полях
+  - missing_count(product_id) = 0:
+      name: "Products: нет пропусков в product_id"
+
+  - missing_count(name) = 0:
+      name: "Products: нет пропусков в name"
+
+  - missing_count(category) = 0:
+      name: "Products: нет пропусков в category"
+
+  - missing_count(price) = 0:
+      name: "Products: нет пропусков в price"
+
+  # Нет дублей
+  - duplicate_count(product_id) = 0:
+      name: "Products: нет дублей по product_id"
+
+  # Цены положительные
+  - min(price) > 0:
+      name: "Products: минимальная цена > 0"
+
+  # Количество положительное
+  - min(quantity) >= 0:
+      name: "Products: количество >= 0"
+
+  # Допустимые категории
+  - invalid_count(category) = 0:
+      name: "Products: только валидные категории"
+      valid values: ['Пицца', 'Бургеры', 'Суши', 'Напитки', 'Десерты']

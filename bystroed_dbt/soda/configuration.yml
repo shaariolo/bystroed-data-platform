@@ -1,0 +1,7 @@
+data_source bystroed_db:
+  type: postgres
+  host: postgres
+  port: 5432
+  username: airflow
+  password: airflow
+  database: bystroed_db
