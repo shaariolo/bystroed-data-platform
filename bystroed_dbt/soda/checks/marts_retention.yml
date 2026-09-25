@@ -1,0 +1,16 @@
+checks for marts.mart_retention:
+  - row_count > 0:
+      name: "Retention: есть данные"
+
+  - missing_count(cohort_month) = 0:
+      name: "Retention: нет пропусков в cohort_month"
+
+  - missing_count(retention_rate) = 0:
+      name: "Retention: нет пропусков в retention_rate"
+
+  # Retention rate должен быть от 0 до 100
+  - min(retention_rate) >= 0:
+      name: "Retention: минимальный retention rate >= 0"
+
+  - max(retention_rate) <= 100:
+      name: "Retention: максимальный retention rate <= 100"

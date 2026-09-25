@@ -1,0 +1,16 @@
+checks for raw.customers:
+  - row_count >= 1000:
+      name: "Customers: минимум 1000 строк"
+
+  - missing_count(customer_id) = 0:
+      name: "Customers: нет пропусков в customer_id"
+
+  - missing_count(city) = 0:
+      name: "Customers: нет пропусков в city"
+
+  - duplicate_count(customer_id) = 0:
+      name: "Customers: нет дублей по customer_id"
+
+  - invalid_count(city) = 0:
+      name: "Customers: только валидные города"
+      valid values: ['Москва', 'Санкт-Петербург', 'Казань', 'Новосибирск', 'Екатеринбург']

@@ -2,8 +2,8 @@ from airflow import DAG
 from airflow.operators.bash import BashOperator
 from datetime import datetime, timedelta
 
-# Путь к dbt-проекту внутри контейнера
 DBT_PROJECT_DIR = "/opt/airflow/bystroed_dbt"
+SODA_DIR = "/opt/airflow/bystroed_dbt/soda"
 
 default_args = {
     "owner": "bystroed",
@@ -31,4 +31,9 @@ with DAG(
         bash_command=f"cd {DBT_PROJECT_DIR} && dbt test",
     )
 
-    dbt_run >> dbt_test
+    soda_marts_check = BashOperator(
+        task_id="soda_marts_check",
+        bash_command=f"cd {SODA_DIR} && soda scan -d bystroed_db -c configuration.yml checks/marts_retention.yml",
+    )
+
+    dbt_run >> dbt_test >> soda_marts_check

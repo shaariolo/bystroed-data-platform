@@ -1,0 +1,19 @@
+checks for raw.orders:
+  - row_count >= 10000:
+      name: "Orders: минимум 10000 строк"
+
+  - missing_count(order_id) = 0:
+      name: "Orders: нет пропусков в order_id"
+
+  - missing_count(customer_id) = 0:
+      name: "Orders: нет пропусков в customer_id"
+
+  - duplicate_count(order_id) = 0:
+      name: "Orders: нет дублей по order_id"
+
+  - min(quantity) > 0:
+      name: "Orders: количество > 0"
+
+  # Проверка referential integrity (все customer_id есть в customers)
+  - missing_count(customer_id) = 0:
+      name: "Orders: все customer_id валидны"
